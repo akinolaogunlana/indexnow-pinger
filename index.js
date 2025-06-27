@@ -1,8 +1,10 @@
 const express = require("express");
 const axios = require("axios");
 const rateLimit = require("express-rate-limit");
+const cors = require("cors"); // ✅ Add CORS
 
 const app = express();
+app.use(cors()); // ✅ Enable CORS
 app.use(express.json());
 
 const INDEXNOW_KEY = "9b1fb73319b04fb3abb5ed09be53d65e";
@@ -34,7 +36,7 @@ app.get("/", (req, res) => {
   res.send("✅ IndexNow Pinger is active.");
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`✅ Server running on port ${port}`);
 });
