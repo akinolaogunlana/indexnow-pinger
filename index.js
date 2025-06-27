@@ -1,17 +1,18 @@
 const express = require("express");
 const axios = require("axios");
 const rateLimit = require("express-rate-limit");
-const cors = require("cors"); // ✅ Add CORS
+const cors = require("cors");
 
 const app = express();
-app.use(cors()); // ✅ Enable CORS
+app.use(cors());
 app.use(express.json());
 
 const INDEXNOW_KEY = "9b1fb73319b04fb3abb5ed09be53d65e";
 
+// ✅ Increase rate limit for bulk pinging
 const limiter = rateLimit({
-  windowMs: 5 * 60 * 1000,
-  max: 20
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100                // Allow up to 100 pings/minute
 });
 app.use("/ping", limiter);
 
